@@ -4,11 +4,13 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+// Step 4
+const cardsDiv = document.querySelector('.cards');
+
 axios.get('https://api.github.com/users/tlu8592')
   .then(response => {
     const userDataObj = response.data;
     // Step 4
-    const cardsDiv = document.querySelector('.cards');
     cardsDiv.appendChild(cardMaker(userDataObj));
   })
   .catch(error => console.log(error));
@@ -40,7 +42,16 @@ axios.get('https://api.github.com/users/tlu8592')
     
 */
 
-const followersArray = [];
+const followersArray = ['ialkamal', 'PVigar88', 'tetondan', 'dustinmyers', 'justsml'];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then(response => {
+      const followerData = response.data;
+      cardsDiv.appendChild(cardMaker(followerData));
+    })
+    .catch(error => console.log(error));
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
